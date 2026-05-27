@@ -166,44 +166,46 @@
   <section class="hero teaser">
     <div class="container is-max-desktop">
       <div class="hero-body">
-        <figure class="image">
-          <img src="static/images/hjepa_diagram.png" alt="H-JEPA computational graph"/>
-          <figcaption class="has-text-centered is-size-6" style="margin-top:0.6em;">
-            <b>H-JEPA.</b> Online encoder (left, orange) processes the corrupted context
-            <span class="dnerf">x&#771; = x + &sigma;&epsilon;</span> bottom-up into shallow / deep latents
-            <span class="dnerf">z&#771;<sub>1</sub>, z&#771;<sub>2</sub></span>;
-            EMA target encoders (right, dashed) encode the clean context <span class="dnerf">x</span> and the
-            paired next-window <span class="dnerf">y</span> into targets
-            <span class="dnerf">z<sub>1</sub><sup>tgt</sup></span>,
-            <span class="dnerf">z<sub>2</sub><sup>tgt</sup></span>.
-            Predictors <span class="dnerf">g<sub>&phi;<sub>1</sub></sub></span>,
-            <span class="dnerf">g<sub>&phi;<sub>2</sub></sub></span> produce
-            <span class="dnerf">z&#770;<sub>1</sub></span>, <span class="dnerf">z&#770;<sub>2</sub></span>,
-            paired against the targets through losses
-            <span class="dnerf">&ell;<sup>1</sup></span> (latent denoising) and
-            <span class="dnerf">&ell;<sup>2</sup></span> (next-window prediction).
-          </figcaption>
-        </figure>
-
-        <figure class="image" style="margin-top:2em;">
-          <img src="static/images/fajepa_attention_diagram.png" alt="FA-JEPA physics-prior attention schematic"/>
-          <figcaption class="has-text-centered is-size-6" style="margin-top:0.6em;">
-            <b>FA-JEPA physics-prior attention.</b> Orientation-field patch features <span class="dnerf">q</span>
-            feed two branches: the standard learned attention
-            <span class="dnerf">A<sup>data</sup>=softmax(QK<sup>T</sup>/&radic;d)</span> (top) and a physics
-            prior <span class="dnerf">A<sup>phys</sup>=softmax(&tau;S)</span> built from pairwise dot products
-            of unit-normalized orientation vectors (bottom). They are mixed by a learnable convex combination
-            <span class="dnerf">A=(1&minus;&lambda;)A<sup>data</sup>+&lambda;A<sup>phys</sup></span>
-            with <span class="dnerf">&lambda;=&sigma;(&eta;)</span> and
-            <span class="dnerf">&tau;=&tau;<sub>max</sub>&sigma;(&rho;)</span>,
-            so the model adopts the prior only where it helps.
-          </figcaption>
-        </figure>
+        <div class="columns is-vcentered">
+          <div class="column">
+            <figure class="image">
+              <img src="static/images/hjepa_diagram.png" alt="H-JEPA computational graph"/>
+              <figcaption class="has-text-centered is-size-7" style="margin-top:0.6em;">
+                <b>H-JEPA.</b> Online encoder (orange) processes the corrupted context
+                <span class="dnerf">x&#771;=x+&sigma;&epsilon;</span> bottom-up into shallow / deep latents
+                <span class="dnerf">z&#771;<sub>1</sub>, z&#771;<sub>2</sub></span>;
+                EMA target encoders (dashed) encode the clean context <span class="dnerf">x</span> and the paired
+                next-window <span class="dnerf">y</span> into targets
+                <span class="dnerf">z<sub>1</sub><sup>tgt</sup>, z<sub>2</sub><sup>tgt</sup></span>.
+                Predictors <span class="dnerf">g<sub>&phi;<sub>1</sub></sub>, g<sub>&phi;<sub>2</sub></sub></span>
+                produce <span class="dnerf">z&#770;<sub>1</sub>, z&#770;<sub>2</sub></span>, paired against the
+                targets through losses <span class="dnerf">&ell;<sup>1</sup></span> (latent denoising) and
+                <span class="dnerf">&ell;<sup>2</sup></span> (next-window prediction).
+              </figcaption>
+            </figure>
+          </div>
+          <div class="column">
+            <figure class="image">
+              <img src="static/images/fajepa_attention_diagram.png" alt="FA-JEPA physics-prior attention schematic"/>
+              <figcaption class="has-text-centered is-size-7" style="margin-top:0.6em;">
+                <b>FA-JEPA physics-prior attention.</b> Orientation-field patch features <span class="dnerf">q</span>
+                feed two branches: the standard learned attention
+                <span class="dnerf">A<sup>data</sup>=softmax(QK<sup>T</sup>/&radic;d)</span> and a physics prior
+                <span class="dnerf">A<sup>phys</sup>=softmax(&tau;S)</span> built from pairwise dot products of
+                unit-normalized orientation vectors. They are mixed by a learnable convex combination
+                <span class="dnerf">A=(1&minus;&lambda;)A<sup>data</sup>+&lambda;A<sup>phys</sup></span> with
+                <span class="dnerf">&lambda;=&sigma;(&eta;)</span> and
+                <span class="dnerf">&tau;=&tau;<sub>max</sub>&sigma;(&rho;)</span> &mdash; so the model adopts
+                the prior only where it helps.
+              </figcaption>
+            </figure>
+          </div>
+        </div>
 
         <h2 class="subtitle has-text-centered" style="margin-top:1.5em;">
           We extend Joint-Embedding Predictive Architectures (JEPA) with two complementary physics-aware designs.
-          <b>H-JEPA</b> decomposes spatial and temporal modeling into a hierarchical inner/outer pathway;
-          <b>FA-JEPA</b> introduces field-aware attention together with a physics-prior attention bias drawn from the nematic order tensor.
+          <b>H-JEPA</b> (left) decomposes spatial and temporal modeling into a hierarchical inner/outer pathway;
+          <b>FA-JEPA</b> (right) introduces field-aware attention together with a physics-prior attention bias drawn from the nematic order tensor.
           Both are trained without labels on the <i>active matter</i> dataset from the Polymathic Well benchmark and evaluated by frozen linear and <i>k</i>NN probes regressing the parameters <span class="dnerf">(&alpha;,&zeta;)</span>.
         </h2>
       </div>
