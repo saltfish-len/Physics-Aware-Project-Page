@@ -186,13 +186,17 @@
         </figure>
 
         <figure class="image" style="margin-top:2em;">
-          <img src="static/images/attention_analysis_data_prior_effective_minus_data.png" alt="FA-JEPA physics-prior attention"/>
+          <img src="static/images/fajepa_attention_diagram.png" alt="FA-JEPA physics-prior attention schematic"/>
           <figcaption class="has-text-centered is-size-6" style="margin-top:0.6em;">
-            <b>FA-JEPA physics-prior attention.</b> All-block average of orientation-field spatial attention:
-            learned data attention (<i>left</i>), nematic-alignment physics-prior attention (<i>middle</i>),
-            and the difference between the effective blended attention and the learned data attention
-            (<i>right</i>). The prior introduces a localized, orientation-aware structure that the
-            effective attention partially adopts.
+            <b>FA-JEPA physics-prior attention.</b> Orientation-field patch features <span class="dnerf">q</span>
+            feed two branches: the standard learned attention
+            <span class="dnerf">A<sup>data</sup>=softmax(QK<sup>T</sup>/&radic;d)</span> (top) and a physics
+            prior <span class="dnerf">A<sup>phys</sup>=softmax(&tau;S)</span> built from pairwise dot products
+            of unit-normalized orientation vectors (bottom). They are mixed by a learnable convex combination
+            <span class="dnerf">A=(1&minus;&lambda;)A<sup>data</sup>+&lambda;A<sup>phys</sup></span>
+            with <span class="dnerf">&lambda;=&sigma;(&eta;)</span> and
+            <span class="dnerf">&tau;=&tau;<sub>max</sub>&sigma;(&rho;)</span>,
+            so the model adopts the prior only where it helps.
           </figcaption>
         </figure>
 
@@ -339,7 +343,7 @@
           </div>
 
           <div class="columns is-centered">
-            <div class="column is-three-quarters">
+            <div class="column">
               <figure class="image">
                 <img src="static/images/field_attention_enrichment_heatmap.png" alt="Field-attention enrichment matrix">
                 <figcaption class="has-text-centered is-size-7">
@@ -348,6 +352,18 @@
                   fields rather than themselves &mdash; the model captures cross-field coupling, with the
                   strongest directed enrichment from orientation to velocity, consistent with the kinetic
                   theory of active suspensions.
+                </figcaption>
+              </figure>
+            </div>
+            <div class="column">
+              <figure class="image">
+                <img src="static/images/attention_analysis_data_prior_effective_minus_data.png" alt="Effect of physics-prior attention on orientation field">
+                <figcaption class="has-text-centered is-size-7">
+                  <b>Where the prior shifts attention.</b> All-block average of orientation-field spatial
+                  attention: learned data attention (<i>left</i>), physics-prior attention (<i>middle</i>),
+                  and the difference between the effective blended attention and the learned data attention
+                  (<i>right</i>). The prior introduces a localized, orientation-aware structure that the
+                  effective attention partially adopts.
                 </figcaption>
               </figure>
             </div>
