@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="title" content="Physics-Aware Representation Learning for Physical Systems">
+  <meta name="description" content="H-JEPA and FA-JEPA: physics-aware JEPA extensions that decompose spatial/temporal modeling and inject physics-prior attention to learn representations of active-matter dynamics.">
+  <meta name="keywords" content="JEPA, self-supervised learning, representation learning, physical systems, active matter, hierarchical JEPA, field-aware attention, scientific machine learning">
+  <meta name="author" content="Charles Cheng Ji, Zhanhe Shi, Richard Wang, Romina Yalovetzky">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="English">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="New York University">
+  <meta property="og:title" content="Physics-Aware Representation Learning for Physical Systems">
+  <meta property="og:description" content="H-JEPA and FA-JEPA: physics-aware JEPA extensions for learning representations of active-matter dynamics.">
+  <meta property="og:url" content="https://saltfish-len.github.io/Physics-Aware-Project-Page/">
+  <meta property="og:image" content="https://saltfish-len.github.io/Physics-Aware-Project-Page/static/images/main_diagram.png">
+  <meta property="og:image:alt" content="Physics-Aware Representation Learning - Method Overview">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Physics-Aware Representation Learning for Physical Systems">
+  <meta name="twitter:description" content="H-JEPA and FA-JEPA: physics-aware JEPA extensions for active-matter dynamics.">
+  <meta name="twitter:image" content="https://saltfish-len.github.io/Physics-Aware-Project-Page/static/images/main_diagram.png">
+
+  <!-- Academic/Research Specific -->
+  <meta name="citation_title" content="Physics-Aware Representation Learning for Physical Systems">
+  <meta name="citation_author" content="Ji, Charles Cheng">
+  <meta name="citation_author" content="Shi, Zhanhe">
+  <meta name="citation_author" content="Wang, Richard">
+  <meta name="citation_author" content="Yalovetzky, Romina">
+  <meta name="citation_publication_date" content="2026">
+  <meta name="citation_pdf_url" content="https://saltfish-len.github.io/Physics-Aware-Project-Page/static/pdfs/paper.pdf">
+
+  <meta name="theme-color" content="#2563eb">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+  <title>Physics-Aware Representation Learning for Physical Systems</title>
+
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+  <link rel="apple-touch-icon" href="static/images/favicon.ico">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <link rel="preload" href="static/css/bulma-carousel.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/bulma-slider.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/fontawesome.all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+  <noscript>
+    <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  </noscript>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script defer src="static/js/bulma-carousel.min.js"></script>
+  <script defer src="static/js/bulma-slider.min.js"></script>
+  <script defer src="static/js/index.js"></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "Physics-Aware Representation Learning for Physical Systems",
+    "description": "H-JEPA and FA-JEPA: physics-aware JEPA extensions that decompose spatial/temporal modeling and inject physics-prior attention to learn representations of active-matter dynamics.",
+    "author": [
+      {"@type": "Person", "name": "Charles Cheng Ji", "affiliation": {"@type": "Organization", "name": "New York University"}},
+      {"@type": "Person", "name": "Zhanhe Shi", "affiliation": {"@type": "Organization", "name": "New York University"}},
+      {"@type": "Person", "name": "Richard Wang", "affiliation": {"@type": "Organization", "name": "New York University"}},
+      {"@type": "Person", "name": "Romina Yalovetzky", "affiliation": {"@type": "Organization", "name": "New York University"}}
+    ],
+    "datePublished": "2026-05-03",
+    "publisher": {"@type": "Organization", "name": "New York University"},
+    "url": "https://saltfish-len.github.io/Physics-Aware-Project-Page/",
+    "image": "https://saltfish-len.github.io/Physics-Aware-Project-Page/static/images/main_diagram.png",
+    "keywords": ["JEPA", "self-supervised learning", "active matter", "physics-aware", "representation learning"],
+    "isAccessibleForFree": true,
+    "license": "https://creativecommons.org/licenses/by/4.0/"
+  }
+  </script>
+</head>
+<body>
+
+  <button class="scroll-to-top" onclick="scrollToTop()" title="Scroll to top" aria-label="Scroll to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <main id="main-content">
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">Physics-Aware Representation Learning for Physical Systems</h1>
+
+            <div class="is-size-5 publication-authors">
+              <!-- TODO: replace # with each author's personal page once available -->
+              <span class="author-block"><a href="#" target="_blank">Charles Cheng Ji</a><sup>*</sup>,</span>
+              <span class="author-block"><a href="#" target="_blank">Zhanhe Shi</a><sup>*</sup>,</span>
+              <span class="author-block"><a href="#" target="_blank">Richard Wang</a><sup>*</sup>,</span>
+              <span class="author-block"><a href="#" target="_blank">Romina Yalovetzky</a><sup>*</sup></span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">New York University<br>NYU CSCI-GA 2572 Deep Learning &mdash; Spring 2026</span>
+              <span class="eql-cntrb"><small><br><sup>*</sup>All authors contributed equally.</small></span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <span class="link-block">
+                  <a href="static/pdfs/paper.pdf" target="_blank"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                    <span>Paper</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a href="https://github.com/saltfish-len/Physics-Aware-Project-Page" target="_blank"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><i class="fab fa-github"></i></span>
+                    <span>Project Page</span>
+                  </a>
+                </span>
+
+                <!-- TODO: replace with the public code repository URL once released -->
+                <span class="link-block">
+                  <a href="#" target="_blank"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><i class="fab fa-github"></i></span>
+                    <span>Code</span>
+                  </a>
+                </span>
+
+                <!-- TODO: replace with the Hugging Face checkpoint URL once public -->
+                <span class="link-block">
+                  <a href="#" target="_blank"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">🤗</span>
+                    <span>Checkpoints</span>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Teaser figure -->
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <img src="static/images/main_diagram.png" alt="Overview of H-JEPA and FA-JEPA"/>
+        <h2 class="subtitle has-text-centered">
+          We extend Joint-Embedding Predictive Architectures (JEPA) with two complementary physics-aware designs.
+          <b>H-JEPA</b> decomposes spatial and temporal modeling into a hierarchical inner/outer pathway;
+          <b>FA-JEPA</b> introduces field-aware attention together with a physics-prior attention bias drawn from the nematic order tensor.
+          Both are trained without labels on the <i>active matter</i> dataset from the Polymathic Well benchmark and evaluated by frozen linear and <i>k</i>NN probes regressing the parameters <span class="dnerf">(&alpha;,&zeta;)</span>.
+        </h2>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Abstract -->
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              Learning representations aligned with physical dynamics remains a central challenge in scientific
+              machine learning. We study this problem within the JEPA framework on the
+              <i>active matter</i> dataset from the Well benchmark, and identify preservation of temporal structure
+              during encoding as the key factor driving downstream physics-prediction quality.
+            </p>
+            <p>
+              Building on this insight, we propose two complementary approaches.
+              <b>H-JEPA</b> decomposes spatial and temporal modeling through its hierarchical structure,
+              reducing total test MSE on the regressed parameters <span class="dnerf">(&alpha;,&zeta;)</span>
+              by up to <b>70%</b> relative to the baseline.
+              <b>FA-JEPA</b> introduces field-aware attention together with a physics-prior attention
+              mechanism that injects domain knowledge directly into the attention process, lowering total
+              test MSE by roughly <b>20%</b> over the prior-free variant on both linear and <i>k</i>NN probes.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Motivation -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-full">
+          <h2 class="title is-3">Why physics-aware JEPA?</h2>
+          <div class="content has-text-justified">
+            <p>
+              Self-supervised pixel-space surrogate models trained to predict the next frame are expensive
+              and often <i>misaligned</i> with what scientific applications actually need: estimates of the
+              hidden physical parameters that govern dynamics. JEPAs avoid pixel reconstruction by predicting
+              <i>latent</i> futures, but vanilla JEPA encoders trained on physical fields often lose the
+              temporal structure that downstream parameter inference depends on.
+            </p>
+            <p>
+              We work on Polymathic Well's <a href="https://polymathic-ai.org/the_well/datasets/active_matter/" target="_blank">active matter</a>
+              benchmark &mdash; rod-like self-propelled particles in a Stokes fluid, governed by two scalar
+              parameters: the active dipole strength <span class="dnerf">&alpha;</span> and the alignment
+              interaction strength <span class="dnerf">&zeta;</span>. Each trajectory is observed through
+              11 physical channels (concentration, 2-D velocity, rank-2 orientation tensor <i>D</i>, rank-2
+              strain-rate tensor <i>E</i>). The task is to learn an encoder, then freeze it and recover
+              <span class="dnerf">(&alpha;,&zeta;)</span> via a single linear layer or <i>k</i>NN &mdash;
+              no fine-tuning, no MLP heads, no attention pooling.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Method: H-JEPA -->
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-full">
+          <h2 class="title is-3">H-JEPA: Hierarchical JEPA</h2>
+          <div class="content has-text-justified">
+            <p>
+              <b>H-JEPA</b> structurally decomposes the encoder into two pathways supervised by complementary
+              self-supervised pretexts:
+            </p>
+            <ul>
+              <li>An <b>inner pathway</b> &mdash; shallow encoder <span class="dnerf">f<sub>&theta;<sub>1</sub></sub></span>
+                  plus inner predictor <span class="dnerf">g<sub>&phi;<sub>1</sub></sub></span> &mdash; performs
+                  <i>latent denoising</i> of a Gaussian-corrupted context, retaining instantaneous local
+                  field structure.</li>
+              <li>An <b>outer pathway</b> &mdash; deep encoder <span class="dnerf">f<sub>&theta;<sub>2</sub></sub></span>
+                  plus outer predictor <span class="dnerf">g<sub>&phi;<sub>2</sub></sub></span> &mdash; performs
+                  standard <i>next-window</i> latent prediction, capturing trajectory-level dynamics.</li>
+            </ul>
+            <p>
+              Both pathways share parameters in the shallow encoder, so the two pretexts shape a common
+              trunk along complementary axes. EMA target encoders provide stop-gradient targets and the loss
+              is a VICReg pair loss with coefficients <span class="dnerf">(2,40,2)</span>.
+              The full model has ~36.5 M parameters; only ~4.0 M are used during frozen probing.
+            </p>
+            <p>
+              <b>What helps.</b> Ablations show that (i) keeping the inner denoising pretext is necessary
+              (removing it inflates <i>k</i>NN total MSE by 26%); (ii) paired next-window supervision is the
+              dominant signal &mdash; redirecting the outer target to the corrupted current window almost
+              doubles linear MSE; (iii) heavier shallow supervision (<span class="dnerf">w<sub>1</sub>=1.0</span>)
+              consistently helps rather than competing with the outer loss.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Method: FA-JEPA -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-full">
+          <h2 class="title is-3">FA-JEPA: Field-Aware JEPA with a physics prior</h2>
+          <div class="content has-text-justified">
+            <p>
+              <b>FA-JEPA</b> uses a ViViT-style encoder/predictor with three attention modes
+              &mdash; <i>field</i> (across the four physical fields at a fixed space-time location),
+              <i>spatial</i> (across patches at a fixed time within a field), and <i>temporal</i>
+              (across time at a fixed location within a field) &mdash; so that the 11 channels are
+              grouped by their physical type (scalar / vector / rank-2 tensor) and patched with
+              field-specific 3-D tubelets of size 2&times;16&times;16.
+            </p>
+            <p>
+              On top of field attention, we add a <b>physics-prior attention</b> bias. The bias is built
+              from the nematic order tensor <span class="dnerf">Q</span>: orientation components are pooled
+              to the patch grid, unit-normalized, and pairwise dot products
+              <span class="dnerf">S<sub>ij</sub> = q&#770;<sub>i</sub> &middot; q&#770;<sub>j</sub></span>
+              give a similarity that rewards attending to patches with similar nematic alignment.
+              The final attention is a convex combination
+              <span class="dnerf">A = (1&minus;&lambda;) A<sup>data</sup> + &lambda; A<sup>phys</sup></span>
+              with <span class="dnerf">A<sup>phys</sup>=softargmax(&tau;S)</span> and
+              <span class="dnerf">&lambda; = &sigma;(&eta;)</span>,
+              <span class="dnerf">&tau; = &tau;<sub>max</sub>&sigma;(&rho;)</span>,
+              both learned. Initialized small so training begins close to standard attention and adopts
+              the prior only where useful.
+            </p>
+          </div>
+
+          <div class="columns is-centered">
+            <div class="column">
+              <figure class="image">
+                <img src="static/images/field_attention_enrichment_heatmap.png" alt="Field-attention enrichment matrix">
+                <figcaption class="has-text-centered is-size-7">
+                  <b>Cross-field coupling.</b> Field-attention enrichment (mean attention minus uniform 1/4).
+                  Velocity, orientation, and strain-rate predominantly attend to <i>other</i> fields rather
+                  than themselves &mdash; the model captures cross-field coupling, with the strongest
+                  directed enrichment from orientation to velocity, consistent with the kinetic theory of
+                  active suspensions.
+                </figcaption>
+              </figure>
+            </div>
+            <div class="column">
+              <figure class="image">
+                <img src="static/images/attention_analysis_data_prior_effective_minus_data.png" alt="Effect of physics-prior attention on orientation field">
+                <figcaption class="has-text-centered is-size-7">
+                  <b>Where the prior shifts attention.</b> All-block average of orientation-field spatial
+                  attention: learned data attention (left), physics-prior attention (middle), and the
+                  difference between the effective blended attention and the learned data attention
+                  (right). The physics prior introduces a localized, orientation-aware structure that the
+                  effective attention partially adopts.
+                </figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Results -->
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-full">
+          <h2 class="title is-3">Results</h2>
+          <div class="content has-text-justified">
+            <p>
+              We report <i>z</i>-score-normalized test MSE for
+              <span class="dnerf">(&alpha;,&zeta;)</span> per-parameter and averaged ("Total").
+              The encoder is frozen and used as a feature extractor; probes are a closed-form least-squares
+              linear regressor (<code>torch.linalg.lstsq</code>) and inverse-distance-weighted <i>k</i>NN.
+              The supervised reference predicts <span class="dnerf">(&alpha;,&zeta;)</span> directly
+              without any probing.
+            </p>
+
+            <div class="table-container">
+              <table class="table is-striped is-hoverable is-fullwidth has-text-centered">
+                <thead>
+                  <tr>
+                    <th rowspan="2" class="has-text-left">Method</th>
+                    <th colspan="3">Linear MSE &darr;</th>
+                    <th colspan="3"><i>k</i>NN MSE &darr;</th>
+                    <th rowspan="2"><i>k</i></th>
+                  </tr>
+                  <tr>
+                    <th><span class="dnerf">&alpha;</span></th>
+                    <th><span class="dnerf">&zeta;</span></th>
+                    <th>Total</th>
+                    <th><span class="dnerf">&alpha;</span></th>
+                    <th><span class="dnerf">&zeta;</span></th>
+                    <th>Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="has-text-left">Baseline (Qu et al., 2026)</td>
+                    <td>0.059</td><td>0.460</td><td>0.260</td>
+                    <td>0.081</td><td>0.570</td><td>0.325</td><td>5</td>
+                  </tr>
+                  <tr>
+                    <td class="has-text-left">Temporal (ViT3D-d6, FFT)</td>
+                    <td>0.016</td><td>0.197</td><td>0.107</td>
+                    <td><b>0.009</b></td><td>0.231</td><td>0.120</td><td>20</td>
+                  </tr>
+                  <tr style="background:#eef6ff;">
+                    <td class="has-text-left"><b>H-JEPA (ours)</b></td>
+                    <td><b>0.014</b></td><td><b>0.173</b></td><td><b>0.093</b></td>
+                    <td><b>0.009</b></td><td><b>0.189</b></td><td><b>0.099</b></td><td>20</td>
+                  </tr>
+                  <tr style="background:#eef6ff;">
+                    <td class="has-text-left"><b>FA-JEPA (ours)</b></td>
+                    <td>0.033</td><td>0.291</td><td>0.162</td>
+                    <td>0.033</td><td>0.550</td><td>0.292</td><td>4</td>
+                  </tr>
+                  <tr>
+                    <td class="has-text-left"><i>Supervised reference</i></td>
+                    <td><i>0.027</i></td><td><i>0.077</i></td><td><i>0.052</i></td>
+                    <td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p class="is-size-7 has-text-centered">
+              <i>z</i>-score MSE on the test set per configuration and probe. Bold marks the best
+              self-supervised result per column. H-JEPA reduces total test MSE by ~64% (linear) and ~70%
+              (<i>k</i>NN) versus the JEPA baseline while keeping the probed feature dimension small (~4 M
+              trainable parameters in the encoder used for probing).
+            </p>
+          </div>
+
+          <div class="columns is-centered">
+            <div class="column">
+              <figure class="image">
+                <img src="static/images/linear_metrics_physics_vs_data_only.png" alt="Linear probe metrics: physics-prior vs data-only attention">
+                <figcaption class="has-text-centered is-size-7">
+                  <b>FA-JEPA linear probe.</b> Adding the physics-prior attention (orange) lowers the
+                  combined <span class="dnerf">(&alpha;,&zeta;)</span> MSE versus the data-attention-only
+                  variant (blue) across training; the gain on <span class="dnerf">&zeta;</span> dominates
+                  the small regression on <span class="dnerf">&alpha;</span>.
+                </figcaption>
+              </figure>
+            </div>
+            <div class="column">
+              <figure class="image">
+                <img src="static/images/knn_metrics_physics_vs_data_only.png" alt="kNN probe metrics: physics-prior vs data-only attention">
+                <figcaption class="has-text-centered is-size-7">
+                  <b>FA-JEPA <i>k</i>NN probe.</b> Under <i>k</i>NN probing, the physics-prior variant
+                  improves on both parameters: the prior preferentially exchanges information between
+                  patches with similar nematic alignment, sharpening the learned feature geometry.
+                </figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Takeaways -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-full">
+          <h2 class="title is-3">Takeaways</h2>
+          <div class="content has-text-justified">
+            <ul>
+              <li><b>Tokenization, not depth, drives the JEPA baseline.</b> A six-block ViT3D over
+                  4&times;16&times;16 spatiotemporal patches outperforms every CNN/Conv+Attn variant we
+                  tried at matched depth &mdash; the win is the tokenizer encoding temporal structure
+                  before pooling collapses it.</li>
+              <li><b>Hierarchical pretexts compose.</b> H-JEPA's inner denoising and outer next-window
+                  prediction shape a shared trunk along complementary axes; removing either degrades the
+                  probe.</li>
+              <li><b>Physics priors belong inside attention.</b> Adding a soft, learnable nematic-alignment
+                  bias to FA-JEPA's attention improves probe MSE without overriding the learned data
+                  attention &mdash; the model adopts the prior where it helps and ignores it elsewhere.</li>
+              <li><b>Aligning representation learning with the structure of the underlying physics is the
+                  lever</b> &mdash; bigger generic models are a weaker substitute.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- BibTeX -->
+  <section class="section hero is-light" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <div class="bibtex-header">
+        <h2 class="title">BibTeX</h2>
+        <button class="copy-bibtex-btn" onclick="copyBibTeX()" title="Copy BibTeX to clipboard">
+          <i class="fas fa-copy"></i>
+          <span class="copy-text">Copy</span>
+        </button>
+      </div>
+<pre id="bibtex-code"><code>@misc{ji2026physicsaware,
+  title  = {Physics-Aware Representation Learning for Physical Systems},
+  author = {Ji, Charles Cheng and Shi, Zhanhe and Wang, Richard and Yalovetzky, Romina},
+  year   = {2026},
+  note   = {NYU CSCI-GA 2572 Deep Learning, Spring 2026},
+  url    = {https://saltfish-len.github.io/Physics-Aware-Project-Page/}
+}</code></pre>
+    </div>
+  </section>
+
+  </main>
+
+
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+            <p>
+              This page was built using the
+              <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a>
+              which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+              You are free to borrow the source code of this website, we just ask that you link back to this page in the footer.
+              <br>
+              This website is licensed under a
+              <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
