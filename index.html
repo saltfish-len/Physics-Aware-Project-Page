@@ -115,7 +115,7 @@
 
             <div class="is-size-5 publication-authors">
               <span class="author-block">New York University<br>NYU CSCI-GA 2572 Deep Learning &mdash; Spring 2026</span>
-              <span class="eql-cntrb"><small><br><sup>*</sup>All authors contributed equally.</small></span>
+              <span class="eql-cntrb"><small><br><sup>*</sup>All authors contributed equally; ordered alphabetically by last name.</small></span>
             </div>
 
             <div class="column has-text-centered">
@@ -162,12 +162,41 @@
   </section>
 
 
-  <!-- Teaser figure -->
+  <!-- Teaser figures -->
   <section class="hero teaser">
     <div class="container is-max-desktop">
       <div class="hero-body">
-        <img src="static/images/main_diagram.png" alt="Overview of H-JEPA and FA-JEPA"/>
-        <h2 class="subtitle has-text-centered">
+        <figure class="image">
+          <img src="static/images/hjepa_diagram.png" alt="H-JEPA computational graph"/>
+          <figcaption class="has-text-centered is-size-6" style="margin-top:0.6em;">
+            <b>H-JEPA.</b> Online encoder (left, orange) processes the corrupted context
+            <span class="dnerf">x&#771; = x + &sigma;&epsilon;</span> bottom-up into shallow / deep latents
+            <span class="dnerf">z&#771;<sub>1</sub>, z&#771;<sub>2</sub></span>;
+            EMA target encoders (right, dashed) encode the clean context <span class="dnerf">x</span> and the
+            paired next-window <span class="dnerf">y</span> into targets
+            <span class="dnerf">z<sub>1</sub><sup>tgt</sup></span>,
+            <span class="dnerf">z<sub>2</sub><sup>tgt</sup></span>.
+            Predictors <span class="dnerf">g<sub>&phi;<sub>1</sub></sub></span>,
+            <span class="dnerf">g<sub>&phi;<sub>2</sub></sub></span> produce
+            <span class="dnerf">z&#770;<sub>1</sub></span>, <span class="dnerf">z&#770;<sub>2</sub></span>,
+            paired against the targets through losses
+            <span class="dnerf">&ell;<sup>1</sup></span> (latent denoising) and
+            <span class="dnerf">&ell;<sup>2</sup></span> (next-window prediction).
+          </figcaption>
+        </figure>
+
+        <figure class="image" style="margin-top:2em;">
+          <img src="static/images/attention_analysis_data_prior_effective_minus_data.png" alt="FA-JEPA physics-prior attention"/>
+          <figcaption class="has-text-centered is-size-6" style="margin-top:0.6em;">
+            <b>FA-JEPA physics-prior attention.</b> All-block average of orientation-field spatial attention:
+            learned data attention (<i>left</i>), nematic-alignment physics-prior attention (<i>middle</i>),
+            and the difference between the effective blended attention and the learned data attention
+            (<i>right</i>). The prior introduces a localized, orientation-aware structure that the
+            effective attention partially adopts.
+          </figcaption>
+        </figure>
+
+        <h2 class="subtitle has-text-centered" style="margin-top:1.5em;">
           We extend Joint-Embedding Predictive Architectures (JEPA) with two complementary physics-aware designs.
           <b>H-JEPA</b> decomposes spatial and temporal modeling into a hierarchical inner/outer pathway;
           <b>FA-JEPA</b> introduces field-aware attention together with a physics-prior attention bias drawn from the nematic order tensor.
@@ -310,27 +339,15 @@
           </div>
 
           <div class="columns is-centered">
-            <div class="column">
+            <div class="column is-three-quarters">
               <figure class="image">
                 <img src="static/images/field_attention_enrichment_heatmap.png" alt="Field-attention enrichment matrix">
                 <figcaption class="has-text-centered is-size-7">
-                  <b>Cross-field coupling.</b> Field-attention enrichment (mean attention minus uniform 1/4).
-                  Velocity, orientation, and strain-rate predominantly attend to <i>other</i> fields rather
-                  than themselves &mdash; the model captures cross-field coupling, with the strongest
-                  directed enrichment from orientation to velocity, consistent with the kinetic theory of
-                  active suspensions.
-                </figcaption>
-              </figure>
-            </div>
-            <div class="column">
-              <figure class="image">
-                <img src="static/images/attention_analysis_data_prior_effective_minus_data.png" alt="Effect of physics-prior attention on orientation field">
-                <figcaption class="has-text-centered is-size-7">
-                  <b>Where the prior shifts attention.</b> All-block average of orientation-field spatial
-                  attention: learned data attention (left), physics-prior attention (middle), and the
-                  difference between the effective blended attention and the learned data attention
-                  (right). The physics prior introduces a localized, orientation-aware structure that the
-                  effective attention partially adopts.
+                  <b>Cross-field coupling.</b> Field-attention enrichment matrix (mean attention minus
+                  uniform 1/4). Velocity, orientation, and strain-rate predominantly attend to <i>other</i>
+                  fields rather than themselves &mdash; the model captures cross-field coupling, with the
+                  strongest directed enrichment from orientation to velocity, consistent with the kinetic
+                  theory of active suspensions.
                 </figcaption>
               </figure>
             </div>
@@ -381,8 +398,8 @@
                     <td>0.059</td><td>0.460</td><td>0.260</td>
                     <td>0.081</td><td>0.570</td><td>0.325</td><td>5</td>
                   </tr>
-                  <tr>
-                    <td class="has-text-left">Temporal (ViT3D-d6, FFT)</td>
+                  <tr style="background:#eef6ff;">
+                    <td class="has-text-left"><b>Temporal &mdash; ViT3D-d6 + FFT (ours)</b></td>
                     <td>0.016</td><td>0.197</td><td>0.107</td>
                     <td><b>0.009</b></td><td>0.231</td><td>0.120</td><td>20</td>
                   </tr>
@@ -406,10 +423,12 @@
             </div>
 
             <p class="is-size-7 has-text-centered">
-              <i>z</i>-score MSE on the test set per configuration and probe. Bold marks the best
-              self-supervised result per column. H-JEPA reduces total test MSE by ~64% (linear) and ~70%
-              (<i>k</i>NN) versus the JEPA baseline while keeping the probed feature dimension small (~4 M
-              trainable parameters in the encoder used for probing).
+              <i>z</i>-score MSE on the test set per configuration and probe. Highlighted rows are
+              <b>our</b> contributions (Temporal, H-JEPA, FA-JEPA); the top row is the JEPA baseline of
+              Qu et&nbsp;al. 2026 that we build on. Bold marks the best self-supervised result per column.
+              H-JEPA reduces total test MSE by ~64% (linear) and ~70% (<i>k</i>NN) versus the baseline
+              while keeping the probed feature dimension small (~4 M trainable parameters in the encoder
+              used for probing).
             </p>
           </div>
 
